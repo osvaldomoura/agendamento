@@ -26,6 +26,6 @@ public class UnidadeSaude {
     private String nome;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn (name = "id", referencedColumnName = "id_unidade_saude")
+    @JoinColumn (name = "id_unidade_saude", referencedColumnName = "id")
     private Collection<Medico> medicos;
 }
