@@ -1,6 +1,5 @@
 package com.agendamento.saude.entity;
 
-import com.agendamento.saude.entity.Medico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
