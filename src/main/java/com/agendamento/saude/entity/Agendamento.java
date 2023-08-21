@@ -1,12 +1,8 @@
-package com.agendamento.saude.entity.agendamento;
+package com.agendamento.saude.entity;
 
 import com.agendamento.saude.entity.enumeration.Status;
-import com.agendamento.saude.entity.medico.Medico;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.Instant;
@@ -16,6 +12,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Agendamento {
 
@@ -31,4 +28,11 @@ public class Agendamento {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "id_medico", referencedColumnName = "id")
+    private Medico medico;
+
+    @Embedded
+    @AttributeOverrides(value={@AttributeOverride(name= "nome", column = @Column(name = "ageNomePaciente"))})
+    private Paciente paciente;
 }

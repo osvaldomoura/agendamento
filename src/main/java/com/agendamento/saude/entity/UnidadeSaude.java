@@ -1,18 +1,21 @@
-package com.agendamento.saude.entity.paciente;
+package com.agendamento.saude.entity;
 
+import com.agendamento.saude.entity.Medico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
+
 @Entity
-@Table(name = "paciente")
+@Table(name = "unidade_saude")
 @Getter
 @Setter
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Paciente {
+public class UnidadeSaude {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
@@ -23,6 +26,7 @@ public class Paciente {
     @Column(name = "nome")
     private String nome;
 
-    @Column(unique = true)
-    private String documento;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn (name = "id", referencedColumnName = "id_unidade_saude")
+    private Collection<Medico> medicos;
 }

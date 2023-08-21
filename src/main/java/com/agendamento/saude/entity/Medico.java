@@ -1,12 +1,14 @@
-package com.agendamento.saude.entity.medico;
+package com.agendamento.saude.entity;
 
-import com.agendamento.saude.entity.agendamento.Agendamento;
 import com.agendamento.saude.entity.enumeration.Especialidade;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Collection;
+
 
 @Entity
 @Table(name = "medico")
@@ -30,7 +32,11 @@ public class Medico {
     @Column(name="especialidade")
     private Especialidade especialidade;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_agendamento", referencedColumnName = "id")
-    private Agendamento agendamento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name = "id_unidade_saude", referencedColumnName = "id")
+    private UnidadeSaude unidadeSaude;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "medico")
+    private Collection<Agendamento> agendamentos;
+
 }
