@@ -1,10 +1,7 @@
 package com.agendamento.saude.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Collection;
 
@@ -13,12 +10,12 @@ import java.util.Collection;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class UnidadeSaude {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -28,4 +25,8 @@ public class UnidadeSaude {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn (name = "id_unidade_saude", referencedColumnName = "id")
     private Collection<Medico> medicos;
+
+    public UnidadeSaude(Long id) {
+        this.id = id;
+    }
 }
